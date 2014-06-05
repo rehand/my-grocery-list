@@ -88,10 +88,13 @@ module.exports = function ( grunt ) {
     /**
      * The directories to delete when `grunt clean` is executed.
      */
-    clean: [ 
-      '<%= build_dir %>', 
-      '<%= compile_dir %>'
-    ],
+    clean: {
+      options: {force: true
+      },
+      stuff: ['<%= build_dir %>', 
+              '<%= compile_dir %>'
+      ]
+    },
 
     /**
      * The `copy` task just copies files from A to B. We use it here to copy
@@ -621,7 +624,7 @@ module.exports = function ( grunt ) {
    * minifying your code.
    */
   grunt.registerTask( 'compile', [
-    'less:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile', 'copy:copy_to_django'
+    'less:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'uglify', 'index:compile'//, 'copy:copy_to_django'
   ]);
 
   /**
