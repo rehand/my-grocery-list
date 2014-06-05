@@ -4,9 +4,9 @@
         <small>Here you can see all your lists.</small>
     </h1>
     <p>
-        <ul class="dropdown-menu">
-            <li data-ng-repeat="choice in dropdownDemoItems">
-                <a>{{choice}}</a>
+        <ul>
+            <li data-ng-repeat="list in lists">
+                <a>{{list.title}} ({{list.id}})</a>
             </li>
         </ul>
     </p>

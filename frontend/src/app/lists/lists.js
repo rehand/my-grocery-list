@@ -17,7 +17,10 @@ angular.module( 'myGroceryList.lists', [
   });
 })
 
-.controller( 'ListsCtrl', function ListsCtrl( $scope ) {
+.controller( 'ListsCtrl', function ListsCtrl($scope, groceryListFactory) {
+    groceryListFactory.query(function(response) {
+        $scope.lists = response;
+    });
 })
 
 ;
