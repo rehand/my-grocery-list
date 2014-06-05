@@ -18,9 +18,12 @@ angular.module( 'myGroceryList.lists', [
 })
 
 .controller( 'ListsCtrl', function ListsCtrl($scope, groceryListFactory) {
-    groceryListFactory.query(function(response) {
-        $scope.lists = response;
-    });
+    groceryListFactory.query()
+        .$promise.then(function(response) {
+            $scope.lists = response;
+        }, function(errorMsg) {
+            
+        });
 })
 
 ;
