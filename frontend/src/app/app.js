@@ -23,5 +23,9 @@ angular.module( 'myGroceryList', [
   });
 })
 
+.factory('groceryListFactory', function($resource) {
+    return $resource('/api/list/:listId', { listId:'@id' });
+})
+
 ;
 
