@@ -1,8 +1,8 @@
-angular.module( 'ngBoilerplate', [
+angular.module( 'myGroceryList', [
   'templates-app',
   'templates-common',
-  'ngBoilerplate.home',
-  'ngBoilerplate.about',
+  'myGroceryList.home',
+  'myGroceryList.about',
   'ui.router',
   'ngResource'
 ])
@@ -17,7 +17,7 @@ angular.module( 'ngBoilerplate', [
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
     if ( angular.isDefined( toState.data.pageTitle ) ) {
-      $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate' ;
+      $scope.pageTitle = toState.data.pageTitle + ' | myGroceryList' ;
     }
   });
 })
