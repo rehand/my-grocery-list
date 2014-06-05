@@ -7,7 +7,7 @@ from django.templatetags.static import static
 
 admin.autodiscover()
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'list', views.GroceryListView)
 router.register(r'entry', views.GroceryListEntryView)
 

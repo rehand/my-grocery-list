@@ -107,3 +107,7 @@ REST_FRAMEWORK = {
         #'myGroceryListBackend.permissions.IsOwnerOrReadOnly',
     ]
 }
+
+#http://www.masnun.com/2013/09/18/django-rest-framework-angularjs-resource-trailing-slash-problem.html
+# set to false to don't force clients to have slash appended
+APPEND_SLASH = False
