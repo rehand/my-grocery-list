@@ -3,6 +3,7 @@ angular.module( 'myGroceryList', [
   'templates-common',
   'myGroceryList.home',
   'myGroceryList.about',
+  'myGroceryList.lists',
   'ui.router',
   'ngResource'
 ])
