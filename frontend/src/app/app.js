@@ -12,7 +12,9 @@ angular.module( 'myGroceryList', [
   $urlRouterProvider.otherwise( '/home' );
 })
 
-.run( function run () {
+.run( function run ($rootScope, $state, $stateParams) {
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
