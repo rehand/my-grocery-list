@@ -37,8 +37,19 @@ angular.module( 'myGroceryList.lists', [
     $scope.lists = lists;
 })
 
-.controller('ListCtrl', function ListCtrl($scope, $stateParams, utils) {
+.controller('ListCtrl', function ListCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log) {
     $scope.list = utils.findById($scope.lists, $stateParams.listId);
+    
+    $scope.updateDone = function (entry) {
+        entryDto = new GroceryListEntryFactory({id: entry.id, done:entry.done});
+        entryDto.$save().then(
+        function(success) {
+            $log.info('success: ' + JSON.stringify(success));
+        }, function(err) {
+            entry.done = !entry.done;
+            $log.error('error: ' + JSON.stringify(err));
+        });
+    };
 })
 
 ;

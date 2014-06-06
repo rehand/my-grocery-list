@@ -3,7 +3,7 @@
     <h5>Created: {{list.dt_created | date:format}}</h5>
     
     <div data-ng-repeat="entry in list.entries" >
-        <input type="checkbox" />
+        <input type="checkbox" data-ng-model="entry.done" data-ng-change="updateDone(entry)"/>
         <a data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription" data-ng-bind="entry.title"></a>
         <small data-ng-bind="entry.description" data-ng-show="entry.showDescription"></small>
     </div>

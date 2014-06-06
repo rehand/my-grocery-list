@@ -29,6 +29,10 @@ angular.module( 'myGroceryList', [
     return $resource('/api/list/:listId', { listId:'@id' });
 })
 
+.factory('GroceryListEntryFactory', function($resource) {
+    return $resource('/api/entry/:entryId', { entryId:'@id' });
+})
+
 .factory('utils', function() {
   return {
     // Util for finding an object by its 'id' property among an array
