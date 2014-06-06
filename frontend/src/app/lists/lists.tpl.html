@@ -1,13 +1,23 @@
 <div class="row">
+  <div class="col-md-3">
+    <div class="well">
+      <h3>Grocery Lists</h3>
+      <ul class="nav nav-pills nav-stacked">
+        <li ng-repeat="list in lists" ui-sref-active="active">
+          <a ui-sref="lists.detail({listId:list.id})">{{list.title}}</a>
+        </li>
+      </ul>
+      <hr>
+    </div>
+  </div>
+
+  <!-- Our unnamed main ui-view for this template -->
+  <div class="col-md-9 slide">
     <h1 class="page-header">
         Grocery Lists
         <small>Here you can see all your lists.</small>
     </h1>
-    <p>
-        <ul>
-            <li data-ng-repeat="list in lists">
-                <a>{{list.title}} ({{list.id}})</a>
-            </li>
-        </ul>
-    </p>
+    
+    <div ui-view></div>
+  </div>
 </div>
