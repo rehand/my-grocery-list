@@ -34,11 +34,19 @@ angular.module( 'myGroceryList.lists', [
       url: '/:entryId/edit',
       views: {
         "edit": {
-          controller: 'ListEditCtrl',
+          controller: 'EntryEditCtrl',
           templateUrl: 'lists/entry.edit.tpl.html'
         }
       }
-    });
+    }).state('lists.detail.create', {
+        url: '/create',
+        views: {
+          "edit": {
+            controller: 'EntryCreateCtrl',
+            templateUrl: 'lists/entry.edit.tpl.html'
+          }
+        }
+      });
 })
 
 .controller( 'ListsCtrl', function ListsCtrl($scope, lists) {
@@ -63,7 +71,7 @@ angular.module( 'myGroceryList.lists', [
     };
 })
 
-.controller('ListEditCtrl', function ListEditCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log, $state) {
+.controller('EntryEditCtrl', function EntryEditCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log, $state) {
     $scope.entry = utils.findById($scope.list.entries, $stateParams.entryId);
     
     $scope.newEntry = {
@@ -105,6 +113,34 @@ angular.module( 'myGroceryList.lists', [
                 $log.info("delete error", err);
             }
         );
+    };
+})
+
+.controller('EntryCreateCtrl', function EntryCreateCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log, $state) {
+    $scope.newEntry = {
+        title : '',
+        description : '',
+        done: false,
+        grocery_list: $scope.list.id
+    };
+    
+    $scope.save = function(entry) {
+        entryDto = new GroceryListEntryFactory($scope.newEntry);
+        entryDto.$save().then(
+            function(success) {
+                $scope.list.entries.push(success);
+                $log.info('create success: ', JSON.stringify(success));
+            },
+            function(err) {
+                $log.error('create error: ', JSON.stringify(err));
+            }
+        );
+        
+        utils.navigateUp($state, $stateParams);
+    };
+    
+    $scope.cancel = function() {
+        utils.navigateUp($state, $stateParams);
     };
 })
 
