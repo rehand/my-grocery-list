@@ -1,0 +1,16 @@
+<div>
+    <h3>Edit {{entry.title}}</h3>
+    <form name="editEntry" data-ng-submit="editEntry.$valid && save(entry)">
+        <label>Title:</label>
+        <input type="text" data-ng-model="newEntry.title" data-ng-required="true" placeholder="Title"/>
+        <br/>
+        
+        <label>Description:</label>
+        <textarea data-ng-model="newEntry.description" data-ng-required="true" placeholder="Description"></textarea>
+        <br/>
+        
+        <button class="fa fa-times" data-ng-click="cancel()">Cancel</button>
+        <button type="submit" class="fa fa-save">Save</button>
+        <button class="fa fa-trash-o" data-ng-click="deleteEntry(entry)">Delete</button>
+    </form>
+</div>

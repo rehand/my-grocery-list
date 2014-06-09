@@ -4,7 +4,13 @@
     
     <div data-ng-repeat="entry in list.entries" >
         <input type="checkbox" data-ng-model="entry.done" data-ng-change="updateDone(entry)"/>
-        <a data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription" data-ng-bind="entry.title"></a>
-        <small data-ng-bind="entry.description" data-ng-show="entry.showDescription"></small>
+        <a data-ng-bind="entry.title"></a>
+        <a class="fa fa-pencil" ui-sref="lists.detail.edit({entryId: entry.id})"></a>
+        <button data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription"></button>
+        <div data-ng-show="entry.showDescription">
+            <small data-ng-bind="entry.description"></small>
+        </div>
     </div>
+    
+    <div ui-view="edit"></div>
 </div>
