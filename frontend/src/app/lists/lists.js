@@ -42,7 +42,7 @@ angular.module( 'myGroceryList.lists', [
     
     $scope.updateDone = function (entry) {
         entryDto = new GroceryListEntryFactory({id: entry.id, done:entry.done});
-        entryDto.$save().then(
+        entryDto.$update().then(
         function(success) {
             $log.info('success: ' + JSON.stringify(success));
         }, function(err) {
