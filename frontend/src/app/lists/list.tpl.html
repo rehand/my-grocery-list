@@ -3,7 +3,7 @@
     <h5>Created: {{list.dt_created | date:format}}</h5>
     
     <div data-ng-repeat="entry in list.entries" >
-        <input type="checkbox" data-ng-model="entry.done" data-ng-change="updateDone(entry)"/>
+        <input type="checkbox" data-ng-init="entry.tmpDone = entry.done" data-ng-model="entry.tmpDone" data-ng-change="updateDone(entry)"/>
         <a data-ng-bind="entry.title"></a>
         <a class="fa fa-pencil" ui-sref="lists.detail.edit({entryId: entry.id})"></a>
         <button data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription"></button>

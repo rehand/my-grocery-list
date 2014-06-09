@@ -49,14 +49,17 @@ angular.module( 'myGroceryList.lists', [
     $scope.list = utils.findById($scope.lists, $stateParams.listId);
     
     $scope.updateDone = function(entry) {
-        entryDto = new GroceryListEntryFactory({id: entry.id, done:entry.done});
+        entryDto = new GroceryListEntryFactory({id: entry.id, done: entry.tmpDone});
         entryDto.$update().then(
-        function(success) {
-            $log.info('success: ' + JSON.stringify(success));
-        }, function(err) {
-            entry.done = !entry.done;
-            $log.error('error: ' + JSON.stringify(err));
-        });
+            function(success) {
+                entry.done = success.done;
+                $log.info('success: ' + JSON.stringify(success));
+            }, 
+            function(err) {
+                entry.tmpDone = entry.done;
+                $log.error('error: ' + JSON.stringify(err));
+            }
+        );
     };
 })
 
