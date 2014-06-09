@@ -20,7 +20,7 @@ class GroceryListEntry(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=2000)
     done = models.BooleanField()
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, null=True)
 
     dt_created = models.DateTimeField(auto_now_add=True)
     dt_modified = models.DateTimeField(auto_now_add=True, auto_now=True)
