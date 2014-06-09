@@ -10,15 +10,25 @@
         <span>Entries</span>
         <a class="btn btn-default" ui-sref="lists.detail.create()"><span class="fa fa-plus"></span></a>
     </h3>
-    <div data-ng-repeat="entry in list.entries" >
-        <input type="checkbox" data-ng-init="entry.tmpDone = entry.done" data-ng-model="entry.tmpDone" data-ng-change="updateDone(entry)"/>
-        <a data-ng-bind="entry.title"></a>
-        <span class="btn-group btn-group-sm">
-            <button class="btn btn-default" ui-sref="lists.detail.edit({entryId: entry.id})"><span class="fa fa-pencil"></span></a>
-            <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription"><span data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'"></span></button>
-        </span>
+    <div data-ng-repeat="entry in list.entries">
+        <div class="input-group">
+        <div class="input-group-addon">
+            <input type="checkbox" data-ng-init="entry.tmpDone = entry.done" data-ng-model="entry.tmpDone" data-ng-change="updateDone(entry)"/>
+        </div>
+        <div class="form-control-static form-control">
+            <span data-ng-bind="entry.title"></span>
+        </div>
+        <div class="input-group-btn">
+            <button class="btn btn-default" ui-sref="lists.detail.edit({entryId: entry.id})">
+                <span class="fa fa-pencil"></span>
+            </button>
+            <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription">
+                <span data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'"></span>
+            </button>
+        </div>
+        </div>
         <div data-ng-show="entry.showDescription">
-            <small data-ng-bind="entry.description"></small>
+            {{entry.description}}
         </div>
     </div>
     
