@@ -1,16 +1,20 @@
-<div>
-    <h3>Edit {{entry.title}}</h3>
+<div class="well well-sm">
+    <h3>
+        {{entry ? 'Edit entry' : 'Create entry'}}
+        <button class="btn btn-danger" data-ng-click="deleteEntry(entry)"><span class="fa fa-trash-o"></span></button>
+    </h3>
     <form name="editEntry" data-ng-submit="editEntry.$valid && save(entry)">
-        <label>Title:</label>
-        <input type="text" data-ng-model="newEntry.title" data-ng-required="true" placeholder="Title"/>
+        <label>Title</label>
+        <input class="form-control" type="text" data-ng-model="newEntry.title" data-ng-required="true" placeholder="Title"/>
         <br/>
         
-        <label>Description:</label>
-        <textarea data-ng-model="newEntry.description" data-ng-required="true" placeholder="Description"></textarea>
+        <label>Description</label>
+        <textarea class="form-control" data-ng-model="newEntry.description" data-ng-required="true" placeholder="Description"></textarea>
         <br/>
         
-        <button class="fa fa-times" data-ng-click="cancel()">Cancel</button>
-        <button type="submit" class="fa fa-save">Save</button>
-        <button class="fa fa-trash-o" data-ng-click="deleteEntry(entry)">Delete</button>
+        <div>
+            <button class="btn btn-default" data-ng-click="cancel()"><span class="fa fa-times"></span>Cancel</button>
+            <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span>Save</button>
+        </div>
     </form>
 </div>

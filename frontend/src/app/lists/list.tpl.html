@@ -1,12 +1,19 @@
 <div>
-    <h2>{{list.title}}<br/><small>{{list.description}}</small></h2>
+    <h2>
+        <span>{{list.title}}</span>
+        <a class="btn btn-default" ui-sref="lists.detail.create()"><span class="fa fa-plus"></span></a>
+        <br/>
+        <small>{{list.description}}</small>
+    </h2>
     <h5>Created: {{list.dt_created | date:format}}</h5>
     
     <div data-ng-repeat="entry in list.entries" >
         <input type="checkbox" data-ng-init="entry.tmpDone = entry.done" data-ng-model="entry.tmpDone" data-ng-change="updateDone(entry)"/>
         <a data-ng-bind="entry.title"></a>
-        <a class="fa fa-pencil" ui-sref="lists.detail.edit({entryId: entry.id})"></a>
-        <button data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription"></button>
+        <span class="btn-group btn-group-sm">
+            <button class="btn btn-default" ui-sref="lists.detail.edit({entryId: entry.id})"><span class="fa fa-pencil"></span></a>
+            <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription"><span data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'"></span></button>
+        </span>
         <div data-ng-show="entry.showDescription">
             <small data-ng-bind="entry.description"></small>
         </div>
