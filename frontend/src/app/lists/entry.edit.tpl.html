@@ -1,7 +1,7 @@
 <div class="well well-sm">
     <h3>
         <span>{{entry ? 'Edit entry' : 'Create entry'}}</span>
-        <button class="btn btn-danger" data-ng-click="deleteEntry(entry)"><span class="fa fa-trash-o"></span></button>
+        <button class="btn btn-danger" data-ng-click="deleteEntry(entry)" data-ng-show="entry"><span class="fa fa-trash-o"></span></button>
     </h3>
     <form class="form-horizontal" name="editEntry" data-ng-submit="editEntry.$valid && save(entry)">
         <div class="form-group">
