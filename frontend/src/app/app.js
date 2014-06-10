@@ -91,6 +91,9 @@ angular.module( 'myGroceryList', [
     },
     navigateUp: function navigateUp(state, stateParams) {
         state.go('^', stateParams);
+    },
+    navigateDoubleUp: function navigateUp(state, stateParams) {
+        state.go('^.^', stateParams);
     }
   };
 })
