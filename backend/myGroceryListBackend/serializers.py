@@ -1,4 +1,3 @@
-from django.forms import widgets
 from rest_framework import serializers
 from models import GroceryList, GroceryListEntry
 
@@ -7,12 +6,12 @@ class GroceryListEntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GroceryListEntry
-        fields = ('id', 'title', 'description', 'dt_created', 'dt_modified', 'done')
+        fields = ('id', 'title', 'description', 'dt_created', 'dt_modified', 'done', 'grocery_list')
 
 class GroceryListSerializer(serializers.ModelSerializer):
     #owner = serializers.Field(source='owner.username')
     #entries = serializers.PrimaryKeyRelatedField(many=True)
-    entries = GroceryListEntrySerializer(many=True)
+    entries = GroceryListEntrySerializer(many=True, read_only=True)
     #RelatedField
 
     class Meta:
