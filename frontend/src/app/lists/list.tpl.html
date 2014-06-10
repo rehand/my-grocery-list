@@ -11,7 +11,7 @@
     
     <h3>
         <span>Entries</span>
-        <a class="btn btn-default" ui-sref="lists.detail.create()"><span class="fa fa-plus"></span></a>
+        <a class="btn btn-default" ui-sref="lists.detail.createEntry()"><span class="fa fa-plus"></span></a>
     </h3>
     <div data-ng-repeat="entry in list.entries | orderBy:['done','title']">
         <div class="input-group">

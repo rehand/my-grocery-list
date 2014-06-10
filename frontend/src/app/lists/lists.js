@@ -46,7 +46,7 @@ angular.module( 'myGroceryList.lists', [
           templateUrl: 'lists/entry.edit.tpl.html'
         }
       }
-    }).state('lists.detail.create', {
+    }).state('lists.detail.createEntry', {
         url: '/create',
         views: {
           "edit": {
