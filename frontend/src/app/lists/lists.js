@@ -21,7 +21,9 @@ angular.module( 'myGroceryList.lists', [
         }
       },
       data:{ pageTitle: 'Grocery Lists' }
-    }).state('lists.detail', {
+    })
+    
+    .state('lists.detail', {
       url: '/:listId',
       views: {
         "": {
@@ -30,7 +32,9 @@ angular.module( 'myGroceryList.lists', [
         }
       },
       data:{ pageTitle: 'Grocery List' }
-    }).state('lists.detail.editList', {
+    })
+    
+    .state('lists.detail.editList', {
       url: '/edit',
       views: {
         "edit": {
@@ -38,7 +42,9 @@ angular.module( 'myGroceryList.lists', [
           templateUrl: 'lists/list.edit.tpl.html'
         }
       }
-    }).state('lists.detail.createEntry', {
+    })
+    
+    .state('lists.detail.createEntry', {
         url: '/create',
         views: {
           "edit": {
@@ -46,7 +52,9 @@ angular.module( 'myGroceryList.lists', [
             templateUrl: 'lists/entry.edit.tpl.html'
           }
         }
-    }).state('lists.detail.editEntry', {
+    })
+    
+    .state('lists.detail.editEntry', {
       url: '/:entryId/edit',
       views: {
         "edit": {
@@ -55,6 +63,7 @@ angular.module( 'myGroceryList.lists', [
         }
       }
     })
+    
     ;
 })
 
