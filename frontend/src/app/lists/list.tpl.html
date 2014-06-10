@@ -22,7 +22,7 @@
                 <span data-ng-bind="entry.title" data-ng-click="entry.tmpDone = !entry.tmpDone; updateDone(entry);"></span>
             </div>
             <div class="input-group-btn">
-                <button class="btn btn-default" ui-sref="lists.detail.edit({entryId: entry.id})">
+                <button class="btn btn-default" ui-sref="lists.detail.editEntry({entryId: entry.id})">
                     <span class="fa fa-pencil"></span>
                 </button>
                 <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription">

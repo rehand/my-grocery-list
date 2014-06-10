@@ -38,14 +38,6 @@ angular.module( 'myGroceryList.lists', [
           templateUrl: 'lists/list.edit.tpl.html'
         }
       }
-    }).state('lists.detail.edit', {
-      url: '/:entryId/edit',
-      views: {
-        "edit": {
-          controller: 'EntryEditCtrl',
-          templateUrl: 'lists/entry.edit.tpl.html'
-        }
-      }
     }).state('lists.detail.createEntry', {
         url: '/create',
         views: {
@@ -54,7 +46,16 @@ angular.module( 'myGroceryList.lists', [
             templateUrl: 'lists/entry.edit.tpl.html'
           }
         }
-      });
+    }).state('lists.detail.editEntry', {
+      url: '/:entryId/edit',
+      views: {
+        "edit": {
+          controller: 'EntryEditCtrl',
+          templateUrl: 'lists/entry.edit.tpl.html'
+        }
+      }
+    })
+    ;
 })
 
 .controller( 'ListsCtrl', function ListsCtrl($scope, lists) {
