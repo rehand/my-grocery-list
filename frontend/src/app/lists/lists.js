@@ -34,6 +34,16 @@ angular.module( 'myGroceryList.lists', [
       data:{ pageTitle: 'Grocery List' }
     })
     
+    .state('lists.createList', {
+      url: '/create',
+      views: {
+        "": {
+          controller: 'ListCreateCtrl',
+          templateUrl: 'lists/list.edit.tpl.html'
+        }
+      }
+    })
+    
     .state('lists.detail.editList', {
       url: '/edit',
       views: {
@@ -86,6 +96,32 @@ angular.module( 'myGroceryList.lists', [
                 $log.error('error: ' + JSON.stringify(err));
             }
         );
+    };
+})
+
+.controller('ListCreateCtrl', function ListCreateCtrl($scope, $stateParams, utils, GroceryListFactory, $log, $state) {
+    $scope.tmpList = {
+        title : '',
+        description : ''
+    };
+    
+    $scope.save = function(list) {
+        listDto = new GroceryListFactory($scope.tmpList);
+        listDto.$save().then(
+            function(success) {
+                $scope.lists.push(success);
+                $log.info('create list success: ', success);
+            },
+            function(err) {
+                $log.error('create list error: ', err);
+            }
+        );
+        
+        utils.navigateUp($state, $stateParams);
+    };
+    
+    $scope.cancel = function() {
+        utils.navigateUp($state, $stateParams);
     };
 })
 

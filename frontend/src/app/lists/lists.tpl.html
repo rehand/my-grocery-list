@@ -1,7 +1,12 @@
 <div class="row">
   <div class="col-md-3">
     <div class="well">
-      <h3>Grocery Lists</h3>
+      <h3>
+        <span>Grocery Lists</span>
+        <button class="btn btn-default" ui-sref="lists.createList()">
+            <span class="fa fa-plus"></span>
+        </button>
+      </h3>
       <ul class="nav nav-pills nav-stacked">
         <li ng-repeat="list in lists | orderBy:'title'" ui-sref-active="active">
           <a ui-sref="lists.detail({listId:list.id})">{{list.title}}</a>
