@@ -1,0 +1,27 @@
+<div class="well well-sm">
+    <h3>
+        <span>Login</span>
+    </h3>
+    <form class="form-horizontal" name="login" data-ng-submit="login.$valid && login()">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">User</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" data-ng-model="user" data-ng-required="true" placeholder="Enter user"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" data-ng-model="password" data-ng-required="true" placeholder="Enter password"/>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" data-ng-click="dismiss(); back()"><span class="fa fa-times"></span>Cancel</button>
+                <button type="submit" class="btn btn-primary"><span class="fa fa-check"></span>Login</button>
+            </div>
+        </div>
+    </form>
+</div>
