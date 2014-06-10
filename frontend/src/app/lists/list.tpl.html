@@ -10,7 +10,7 @@
         <span>Entries</span>
         <a class="btn btn-default" ui-sref="lists.detail.create()"><span class="fa fa-plus"></span></a>
     </h3>
-    <div data-ng-repeat="entry in list.entries">
+    <div data-ng-repeat="entry in list.entries | orderBy:['done','title']">
         <div class="input-group">
             <div class="input-group-addon">
                 <input type="checkbox" data-ng-init="entry.tmpDone = entry.done" data-ng-model="entry.tmpDone" data-ng-change="updateDone(entry)"/>
