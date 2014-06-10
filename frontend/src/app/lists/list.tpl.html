@@ -2,6 +2,9 @@
     <h2 class="page-header">
         <span>{{list.title}}</span>
         <small>Created: {{list.dt_created | date:format}}</small>
+        <button class="btn btn-default" ui-sref="lists.detail.editList({listId: list.id})">
+            <span class="fa fa-pencil"></span>
+        </button>
         <br/>
         <small>{{list.description}}</small>
     </h2>

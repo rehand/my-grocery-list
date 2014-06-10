@@ -10,8 +10,8 @@ angular.module( 'myGroceryList.lists', [
       url: '/lists',
       resolve: {
         lists:
-            function(groceryListFactory){
-                return groceryListFactory.query().$promise;
+            function(GroceryListFactory){
+                return GroceryListFactory.query().$promise;
             }
       },
       views: {
@@ -30,6 +30,14 @@ angular.module( 'myGroceryList.lists', [
         }
       },
       data:{ pageTitle: 'Grocery List' }
+    }).state('lists.detail.editList', {
+      url: '/edit',
+      views: {
+        "edit": {
+          controller: 'ListEditCtrl',
+          templateUrl: 'lists/list.edit.tpl.html'
+        }
+      }
     }).state('lists.detail.edit', {
       url: '/:entryId/edit',
       views: {
@@ -71,6 +79,49 @@ angular.module( 'myGroceryList.lists', [
     };
 })
 
+.controller('ListEditCtrl', function ListEditCtrl($scope, $stateParams, utils, GroceryListFactory, $log, $state) {
+    $scope.tmpList = {
+        title : $scope.list.title,
+        description : $scope.list.description
+    };
+    
+    $scope.save = function(list) {
+        listDto = new GroceryListFactory({
+            id : list.id,
+            title : $scope.tmpList.title,
+            description : $scope.tmpList.description
+        });
+        listDto.$update().then(
+            function(success) {
+                angular.extend($scope.list, success);
+                $log.info('update list success: ', JSON.stringify(success));
+            },
+            function(err) {
+                $log.error('update list error: ', JSON.stringify(err));
+            }
+        );
+        
+        utils.navigateUp($state, $stateParams);
+    };
+    
+    $scope.cancel = function() {
+        utils.navigateUp($state, $stateParams);
+    };
+    
+    $scope.deleteList = function(list) {
+        listDto = new GroceryListFactory(list);
+        listDto.$remove().then(
+            function(success) {
+                $scope.lists.splice($scope.lists.indexOf(list), 1);
+                $log.info("delete list success", success);
+            },
+            function(err) {
+                $log.info("delete list error", err);
+            }
+        );
+    };
+})
+
 .controller('EntryEditCtrl', function EntryEditCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log, $state) {
     $scope.entry = utils.findById($scope.list.entries, $stateParams.entryId);
     
@@ -88,10 +139,10 @@ angular.module( 'myGroceryList.lists', [
         entryDto.$update().then(
             function(success) {
                 angular.extend($scope.entry, success);
-                $log.info('update success: ', JSON.stringify(success));
+                $log.info('update entry success: ', JSON.stringify(success));
             },
             function(err) {
-                $log.error('update error: ', JSON.stringify(err));
+                $log.error('update entry error: ', JSON.stringify(err));
             }
         );
         
@@ -107,10 +158,10 @@ angular.module( 'myGroceryList.lists', [
         entryDto.$remove().then(
             function(success) {
                 $scope.list.entries.splice($scope.list.entries.indexOf(entry), 1);
-                $log.info("delete success", success);
+                $log.info("delete entry success", success);
             },
             function(err) {
-                $log.info("delete error", err);
+                $log.info("delete entry error", err);
             }
         );
     };

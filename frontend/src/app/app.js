@@ -50,7 +50,7 @@ angular.module( 'myGroceryList', [
   });
 })
 
-.factory('groceryListFactory', function($resource) {
+.factory('GroceryListFactory', function($resource) {
     return $resource('/api/list/:listId', 
             { listId: '@id' },
             // use PATCH for partial updates

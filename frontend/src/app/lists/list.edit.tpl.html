@@ -1,0 +1,28 @@
+<div class="well well-sm">
+    <h3>
+        <span>{{list ? 'Edit list' : 'Create list'}}</span>
+        <button class="btn btn-danger" data-ng-click="deleteList(list)"><span class="fa fa-trash-o"></span></button>
+    </h3>
+    <form class="form-horizontal" name="editList" data-ng-submit="editList.$valid && save(list)">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" data-ng-model="tmpList.title" data-ng-required="true" placeholder="Title"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" data-ng-model="tmpList.description" data-ng-required="true" placeholder="Description"></textarea>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-default" data-ng-click="cancel()"><span class="fa fa-times"></span>Cancel</button>
+                <button type="submit" class="btn btn-primary"><span class="fa fa-save"></span>Save</button>
+            </div>
+        </div>
+    </form>
+</div>
