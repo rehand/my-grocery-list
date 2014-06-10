@@ -89,11 +89,11 @@ angular.module( 'myGroceryList.lists', [
         entryDto.$update().then(
             function(success) {
                 entry.done = success.done;
-                $log.info('success: ' + JSON.stringify(success));
+                $log.info('success: ', success);
             }, 
             function(err) {
                 entry.tmpDone = entry.done;
-                $log.error('error: ' + JSON.stringify(err));
+                $log.error('error: ', err);
             }
         );
     };
@@ -139,10 +139,10 @@ angular.module( 'myGroceryList.lists', [
         listDto.$update().then(
             function(success) {
                 angular.extend($scope.list, success);
-                $log.info('update list success: ', JSON.stringify(success));
+                $log.info('update list success: ', success);
             },
             function(err) {
-                $log.error('update list error: ', JSON.stringify(err));
+                $log.error('update list error: ', err);
             }
         );
         
@@ -185,10 +185,10 @@ angular.module( 'myGroceryList.lists', [
         entryDto.$update().then(
             function(success) {
                 angular.extend($scope.entry, success);
-                $log.info('update entry success: ', JSON.stringify(success));
+                $log.info('update entry success: ', success);
             },
             function(err) {
-                $log.error('update entry error: ', JSON.stringify(err));
+                $log.error('update entry error: ', err);
             }
         );
         
@@ -227,10 +227,10 @@ angular.module( 'myGroceryList.lists', [
         entryDto.$save().then(
             function(success) {
                 $scope.list.entries.push(success);
-                $log.info('create success: ', JSON.stringify(success));
+                $log.info('create success: ', success);
             },
             function(err) {
-                $log.error('create error: ', JSON.stringify(err));
+                $log.error('create error: ', err);
             }
         );
         
