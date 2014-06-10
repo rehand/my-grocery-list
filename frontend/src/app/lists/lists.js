@@ -110,14 +110,13 @@ angular.module( 'myGroceryList.lists', [
         listDto.$save().then(
             function(success) {
                 $scope.lists.push(success);
+                $state.go("lists.detail", {listId: success.id});
                 $log.info('create list success: ', success);
             },
             function(err) {
                 $log.error('create list error: ', err);
             }
         );
-        
-        utils.navigateUp($state, $stateParams);
     };
     
     $scope.cancel = function() {
@@ -159,6 +158,7 @@ angular.module( 'myGroceryList.lists', [
         listDto.$remove().then(
             function(success) {
                 $scope.lists.splice($scope.lists.indexOf(list), 1);
+                utils.navigateDoubleUp($state, $stateParams);
                 $log.info("delete list success", success);
             },
             function(err) {
@@ -204,6 +204,7 @@ angular.module( 'myGroceryList.lists', [
         entryDto.$remove().then(
             function(success) {
                 $scope.list.entries.splice($scope.list.entries.indexOf(entry), 1);
+                utils.navigateUp($state, $stateParams);
                 $log.info("delete entry success", success);
             },
             function(err) {
