@@ -7,7 +7,7 @@ class GroceryListEntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GroceryListEntry
-        fields = ('id', 'title', 'description', 'owner', 'dt_created', 'dt_modified', 'grocery_list', 'done')
+        fields = ('id', 'title', 'description', 'dt_created', 'dt_modified', 'done')
 
 class GroceryListSerializer(serializers.ModelSerializer):
     #owner = serializers.Field(source='owner.username')
