@@ -24,7 +24,7 @@ angular.module( 'myGroceryList.lists', [
     })
     
     .state('lists.detail', {
-      url: '/:listId',
+      url: '/{listId:[0-9]+}',
       views: {
         "": {
           controller: 'ListCtrl',
@@ -45,7 +45,7 @@ angular.module( 'myGroceryList.lists', [
     })
     
     .state('lists.detail.createEntry', {
-        url: '/create',
+        url: '/entries/create',
         views: {
           "edit": {
             controller: 'EntryCreateCtrl',
@@ -55,7 +55,7 @@ angular.module( 'myGroceryList.lists', [
     })
     
     .state('lists.detail.editEntry', {
-      url: '/:entryId/edit',
+      url: '/entries/{entryId:[0-9]+}/edit',
       views: {
         "edit": {
           controller: 'EntryEditCtrl',
