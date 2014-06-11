@@ -105,6 +105,12 @@ REST_FRAMEWORK = {
         #'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.DjangoModelPermissions',
         #'myGroceryListBackend.permissions.IsOwnerOrReadOnly',
+    ],
+    
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'myGroceryListBackend.authentication.QuietBasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.BasicAuthentication',
     ]
 }
 

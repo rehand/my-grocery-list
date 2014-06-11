@@ -28,6 +28,9 @@ urlpatterns += patterns(
     url(r'^(?:index.html)?$', RedirectView.as_view(url=static('index.html'), permanent=False)),
     url(r'^(?P<path>(?:js|css|img)/.*)$', 'serve'),
     url(r'^(?P<path>(?:.*\.(ico|xml|txt|appcache)))$', 'serve'),
+    url(r'^api/auth$',
+        views.AuthView.as_view(),
+        name='authenticate'),
 )
 
 # debug only
