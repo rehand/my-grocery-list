@@ -6,15 +6,18 @@ angular.module( 'myGroceryList.login', [
 .config(function config($stateProvider) {
   $stateProvider.state("login", {
     url: "/login",
-    onEnter: function($stateParams, $state, $modal, $resource) {
+    onEnter: function($state, $modal, $http, Base64, AuthFactory) {
       dialog = $modal.open({
         templateUrl: "login/login.tpl.html",
-        controller: function($scope, $log) {
+        controller: function($scope, $log, $http) {
           $scope.dismiss = function() {
             $scope.$dismiss();
           };
-          $scope.login = function() {
-            $log.log('login');
+          $scope.doLogin = function(user, password) {
+            auth = new AuthFactory();
+            $log.log('login ' + user + "/" + password);
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(user + ':' + password);
+            return auth.$save();
           };
         }
       });
