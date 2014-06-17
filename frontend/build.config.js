@@ -70,7 +70,8 @@ module.exports = {
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
       'vendor/angular-ui-router/release/angular-ui-router.min.js',
       'vendor/angular-ui-utils/modules/route/route.js',
-      'vendor/angular-resource/angular-resource.min.js'
+      'vendor/angular-resource/angular-resource.min.js',
+      'vendor/angular-cookies/angular-cookies.min.js'
     ],
     css: [
     ],
