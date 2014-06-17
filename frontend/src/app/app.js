@@ -6,10 +6,16 @@ angular.module( 'myGroceryList', [
   'myGroceryList.lists',
   'myGroceryList.login',
   'ui.router',
-  'ngResource'
+  'ngResource',
+  'ngCookies'
 ])
 
-.factory('authHttpResponseInterceptor', function($q, $location, $log){
+.constant('COOKIE_NAMES', {
+    login: 'header',
+    loginName: 'loginName'
+})
+
+.factory('authHttpResponseInterceptor', function($q, $location, $log, COOKIE_NAMES, $cookieStore, $rootScope){
     return {
         response: function(response){
             if (response.status === 403) {
@@ -20,6 +26,9 @@ angular.module( 'myGroceryList', [
         responseError: function(rejection) {
             if (rejection.status === 401) {
                 $log.log("Response Error ", rejection);
+                $cookieStore.remove(COOKIE_NAMES.login);
+                $cookieStore.remove(COOKIE_NAMES.loginName);
+                $rootScope.userLoggedIn = null;
                 $location.path('/login').search('returnTo', $location.path());
             }
             return $q.reject(rejection);
@@ -38,12 +47,12 @@ angular.module( 'myGroceryList', [
   $httpProvider.interceptors.push('authHttpResponseInterceptor');
 })
 
-.run( function run ($rootScope, $state, $stateParams) {
+.run( function run ($rootScope, $state, $stateParams, $http, $log, COOKIE_NAMES, $cookieStore) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
     
     $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
-        // to be used for back button //won't work when page is reloaded.
+        // to be used for back button - won't work when page is reloaded.
         $rootScope.previousState_name = fromState.name;
         $rootScope.previousState_params = fromParams;
     });
@@ -53,6 +62,14 @@ angular.module( 'myGroceryList', [
             $state.go($rootScope.previousState_name,$rootScope.previousState_params);
         }
     };
+    
+    // set auth data in header if cookie is available
+    var login = $cookieStore.get(COOKIE_NAMES.login);
+    $log.log("auth header from cookie: ", login);
+    if (login) {
+        $http.defaults.headers.common['Authorization'] = login;
+        $rootScope.userLoggedIn = $cookieStore.get(COOKIE_NAMES.loginName);
+    }
 })
 
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {

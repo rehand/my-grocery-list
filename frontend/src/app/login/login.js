@@ -1,12 +1,13 @@
 angular.module( 'myGroceryList.login', [
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngCookies'
 ])
 
 .config(function config($stateProvider) {
   $stateProvider.state("login", {
     url: "/login",
-    onEnter: function($state, $modal, $http, Base64, AuthFactory) {
+    onEnter: function($state, $modal, $http, Base64, AuthFactory, COOKIE_NAMES, $cookieStore, $rootScope, $log) {
       dialog = $modal.open({
         templateUrl: "login/login.tpl.html",
         controller: function($scope, $log, $http) {
@@ -14,10 +15,22 @@ angular.module( 'myGroceryList.login', [
             $scope.$dismiss();
           };
           $scope.doLogin = function(user, password) {
-            auth = new AuthFactory();
             $log.log('login ' + user + "/" + password);
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(user + ':' + password);
-            return auth.$save();
+            
+            loginData = 'Basic ' + Base64.encode(user + ':' + password);
+            $http.defaults.headers.common['Authorization'] = loginData;
+            $cookieStore.put(COOKIE_NAMES.login, loginData);
+            
+            auth = new AuthFactory();
+            auth.$save().then(function(result) {
+              if (result && result.username) {
+                var loginName = result.username;
+                $log.log("user logged in: " + loginName);
+                $rootScope.userLoggedIn = loginName;
+                $cookieStore.put(COOKIE_NAMES.loginName, loginName);
+              }
+              return $state.transitionTo("lists");
+            });
           };
         }
       });
@@ -36,10 +49,10 @@ angular.module( 'myGroceryList.login', [
       $state.dialog = dialog;
     },
     onExit: function($state) {
-        // close dialog if it is still opened
-        if($state && $state.dialog) {
-            $state.dialog.dismiss();
-        }
+      // close dialog if it is still opened
+      if($state && $state.dialog) {
+        $state.dialog.$dismiss();
+      }
     }
   });
 })
