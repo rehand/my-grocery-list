@@ -29,7 +29,7 @@ angular.module( 'myGroceryList', [
                 $cookieStore.remove(COOKIE_NAMES.login);
                 $cookieStore.remove(COOKIE_NAMES.loginName);
                 $rootScope.userLoggedIn = null;
-                $location.path('/login').search('returnTo', $location.path());
+                $rootScope.$state.go('login');
             }
             return $q.reject(rejection);
         }
@@ -59,7 +59,7 @@ angular.module( 'myGroceryList', [
     // back button function called from back button's ng-click="back()"
     $rootScope.back = function() {
         if($rootScope.previousState_name) {
-            $state.go($rootScope.previousState_name,$rootScope.previousState_params);
+            $state.go($rootScope.previousState_name, $rootScope.previousState_params);
         }
     };
     
@@ -72,8 +72,8 @@ angular.module( 'myGroceryList', [
     }
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+.controller( 'AppCtrl', function AppCtrl($scope, $location) {
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     if (angular.isDefined(toState) && angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
       $scope.pageTitle = toState.data.pageTitle + ' | myGroceryList' ;
     }
