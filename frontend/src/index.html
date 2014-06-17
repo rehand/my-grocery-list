@@ -76,10 +76,14 @@
                     Grocery Lists
                   </a>
                 </li>
-                <li ui-sref-active="active">
-                  <a href ui-sref="login">
+                <li ui-sref-active="active" data-ng-switch="!!userLoggedIn">
+                  <a href ui-sref="login" data-ng-switch-when="false">
                     <i class="fa fa-sign-in"></i>
                     Login
+                  </a>
+                  <a href ui-sref="logout" data-ng-switch-when="true">
+                    <i class="fa fa-sign-out"></i>
+                    Logout
                   </a>
                 </li>
 		      </ul>

@@ -54,6 +54,21 @@ angular.module( 'myGroceryList.login', [
         $state.dialog.$dismiss();
       }
     }
+  }).state('logout', {
+    url: "/logout",
+    onEnter: function($state, $http, AuthFactory, $rootScope, COOKIE_NAMES, $cookieStore) {
+      $cookieStore.remove(COOKIE_NAMES.login);
+      $cookieStore.remove(COOKIE_NAMES.loginName);
+      $rootScope.userLoggedIn = null;
+      $http.defaults.headers.common['Authorization'] = null;
+      
+      auth = new AuthFactory();
+      promise = auth.$remove();
+      promise['finally'](function() {
+        // navigate to previous state
+        $rootScope.back();
+      });
+    }
   });
 })
 

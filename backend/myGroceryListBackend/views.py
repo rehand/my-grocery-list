@@ -1,11 +1,10 @@
 from rest_framework import viewsets
 import models, serializers, permissions
-from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from . import authentication
 from rest_framework.response import Response
 import rest_framework
-from rest_framework.decorators import permission_classes
+from django.contrib.auth import logout
 
 # Create your views here.
 class GroceryListView(viewsets.ModelViewSet):
@@ -31,3 +30,8 @@ class AuthView(APIView):
  
     def post(self, request, *args, **kwargs):
         return Response(self.serializer_class(request.user).data)
+    
+    def delete(self, request, *args, **kwargs):
+        logout(request)
+        return Response()
+
