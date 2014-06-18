@@ -2,7 +2,6 @@ angular.module( 'myGroceryList', [
   'templates-app',
   'templates-common',
   'myGroceryList.home',
-  'myGroceryList.about',
   'myGroceryList.lists',
   'myGroceryList.login',
   'ui.router',
