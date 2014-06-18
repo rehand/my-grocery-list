@@ -71,7 +71,8 @@ module.exports = {
       'vendor/angular-ui-router/release/angular-ui-router.min.js',
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/angular-resource/angular-resource.min.js',
-      'vendor/angular-cookies/angular-cookies.min.js'
+      'vendor/angular-cookies/angular-cookies.min.js',
+      'vendor/autofill-event/src/autofill-event.js'
     ],
     css: [
     ],
