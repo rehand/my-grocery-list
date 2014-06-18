@@ -31,6 +31,8 @@ angular.module( 'myGroceryList.login', [
               }
               $state.transitionTo("lists");
             });
+            
+            return true;
           };
         }
       });
