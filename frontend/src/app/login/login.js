@@ -29,7 +29,7 @@ angular.module( 'myGroceryList.login', [
                 $rootScope.userLoggedIn = loginName;
                 $cookieStore.put(COOKIE_NAMES.loginName, loginName);
               }
-              return $state.transitionTo("lists");
+              $state.transitionTo("lists");
             });
           };
         }
@@ -42,8 +42,8 @@ angular.module( 'myGroceryList.login', [
         // set dialog to null as it is already closed
         $state.dialog = null;
       }, function() {
-          // set dialog to null as it is already dismissed
-          $state.dialog = null;
+        // set dialog to null as it is already dismissed
+        $state.dialog = null;
       });
       
       $state.dialog = dialog;
@@ -51,7 +51,7 @@ angular.module( 'myGroceryList.login', [
     onExit: function($state) {
       // close dialog if it is still opened
       if($state && $state.dialog) {
-        $state.dialog.$dismiss();
+        $state.dialog.dismiss();
       }
     }
   }).state('logout', {
