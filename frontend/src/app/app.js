@@ -15,24 +15,24 @@ angular.module( 'myGroceryList', [
 })
 
 .factory('authHttpResponseInterceptor', function($q, $location, $log, COOKIE_NAMES, $cookieStore, $rootScope){
-    return {
-        response: function(response){
-            if (response.status === 403) {
-                $log.log("Response " + response.status);
-            }
-            return response || $q.when(response);
-        },
-        responseError: function(rejection) {
-            if (rejection.status === 401) {
-                $log.log("Response Error ", rejection);
-                $cookieStore.remove(COOKIE_NAMES.login);
-                $cookieStore.remove(COOKIE_NAMES.loginName);
-                $rootScope.userLoggedIn = null;
-                $rootScope.$state.go('login');
-            }
-            return $q.reject(rejection);
-        }
-    };
+  return {
+    response: function(response){
+      if (response.status === 403) {
+        $log.log("Response " + response.status);
+      }
+      return response || $q.when(response);
+    },
+    responseError: function(rejection) {
+      if (rejection.status === 401) {
+        $log.log("Response Error ", rejection);
+        $cookieStore.remove(COOKIE_NAMES.login);
+        $cookieStore.remove(COOKIE_NAMES.loginName);
+        $rootScope.userLoggedIn = null;
+        $rootScope.$state.go('login');
+      }
+      return $q.reject(rejection);
+    }
+  };
 })
 
 .config( function myAppConfig ($urlRouterProvider, $httpProvider) {
@@ -47,31 +47,31 @@ angular.module( 'myGroceryList', [
 })
 
 .run( function run ($rootScope, $state, $stateParams, $http, $log, COOKIE_NAMES, $cookieStore) {
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-    
-    $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
-        // to be used for back button - won't work when page is reloaded.
-        $rootScope.previousState_name = fromState.name;
-        $rootScope.previousState_params = fromParams;
-    });
-    // back button function called from back button's ng-click="back()"
-    $rootScope.back = function() {
-        if($rootScope.previousState_name) {
-            $state.go($rootScope.previousState_name, $rootScope.previousState_params);
-        }
-    };
-    
-    // set auth data in header if cookie is available
-    var login = $cookieStore.get(COOKIE_NAMES.login);
-    $log.log("auth header from cookie: ", login);
-    if (login) {
-        $http.defaults.headers.common['Authorization'] = login;
-        $rootScope.userLoggedIn = $cookieStore.get(COOKIE_NAMES.loginName);
+  $rootScope.$state = $state;
+  $rootScope.$stateParams = $stateParams;
+  
+  $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
+    // to be used for back button - won't work when page is reloaded.
+    $rootScope.previousState_name = fromState.name;
+    $rootScope.previousState_params = fromParams;
+  });
+  // back button function called from back button's ng-click="back()"
+  $rootScope.back = function() {
+    if($rootScope.previousState_name) {
+      $state.go($rootScope.previousState_name, $rootScope.previousState_params);
     }
+  };
+  
+  // set auth data in header if cookie is available
+  var login = $cookieStore.get(COOKIE_NAMES.login);
+  $log.log("auth header from cookie: ", login);
+  if (login) {
+    $http.defaults.headers.common['Authorization'] = login;
+    $rootScope.userLoggedIn = $cookieStore.get(COOKIE_NAMES.loginName);
+  }
 })
 
-.controller( 'AppCtrl', function AppCtrl($scope, $location) {
+.controller('AppCtrl', function AppCtrl($scope, $location) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     if (angular.isDefined(toState) && angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
       $scope.pageTitle = toState.data.pageTitle + ' | myGroceryList' ;
@@ -80,22 +80,25 @@ angular.module( 'myGroceryList', [
 })
 
 .factory('GroceryListFactory', function($resource) {
-    return $resource('/api/list/:listId', 
-            { listId: '@id' },
-            // use PATCH for partial updates
-            { update: { method: 'PATCH' }});
+  return $resource(
+    '/api/list/:listId', 
+    {listId: '@id'},
+    // use PATCH for partial updates
+    {update: {method: 'PATCH'}}
+  );
 })
 
 .factory('GroceryListEntryFactory', function($resource) {
-    return $resource('/api/entry/:entryId',
-            { entryId: '@id' },
-            // use PATCH for partial updates
-            { update: { method: 'PATCH' }}
-    );
+  return $resource(
+    '/api/entry/:entryId',
+    {entryId: '@id'},
+    // use PATCH for partial updates
+    {update: {method: 'PATCH'}}
+  );
 })
 
 .factory('AuthFactory', function($resource) {
-    return $resource('/api/auth/');
+  return $resource('/api/auth/');
 })
 
 .factory('utils', function() {
@@ -110,98 +113,98 @@ angular.module( 'myGroceryList', [
       return null;
     },
     navigateUp: function navigateUp(state, stateParams) {
-        state.go('^', stateParams);
+      state.go('^', stateParams);
     },
     navigateDoubleUp: function navigateUp(state, stateParams) {
-        state.go('^.^', stateParams);
+      state.go('^.^', stateParams);
     }
   };
 })
 
 // http://wemadeyoulook.at/en/blog/implementing-basic-http-authentication-http-requests-angular/
 .factory('Base64', function() {
-    var keyStr = 'ABCDEFGHIJKLMNOP' +
-        'QRSTUVWXYZabcdef' +
-        'ghijklmnopqrstuv' +
-        'wxyz0123456789+/' +
-        '=';
-    return {
-        encode: function (input) {
-            var output = "";
-            var chr1, chr2, chr3 = "";
-            var enc1, enc2, enc3, enc4 = "";
-            var i = 0;
+  var keyStr = 'ABCDEFGHIJKLMNOP' +
+    'QRSTUVWXYZabcdef' +
+    'ghijklmnopqrstuv' +
+    'wxyz0123456789+/' +
+    '=';
+  return {
+    encode: function (input) {
+      var output = "";
+      var chr1, chr2, chr3 = "";
+      var enc1, enc2, enc3, enc4 = "";
+      var i = 0;
  
-            do {
-                chr1 = input.charCodeAt(i++);
-                chr2 = input.charCodeAt(i++);
-                chr3 = input.charCodeAt(i++);
+      do {
+        chr1 = input.charCodeAt(i++);
+        chr2 = input.charCodeAt(i++);
+        chr3 = input.charCodeAt(i++);
  
-                enc1 = chr1 >> 2;
-                enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-                enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-                enc4 = chr3 & 63;
+        enc1 = chr1 >> 2;
+        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+        enc4 = chr3 & 63;
  
-                if (isNaN(chr2)) {
-                    enc3 = enc4 = 64;
-                } else if (isNaN(chr3)) {
-                    enc4 = 64;
-                }
- 
-                output = output +
-                    keyStr.charAt(enc1) +
-                    keyStr.charAt(enc2) +
-                    keyStr.charAt(enc3) +
-                    keyStr.charAt(enc4);
-                chr1 = chr2 = chr3 = "";
-                enc1 = enc2 = enc3 = enc4 = "";
-            } while (i < input.length);
- 
-            return output;
-        },
- 
-        decode: function (input) {
-            var output = "";
-            var chr1, chr2, chr3 = "";
-            var enc1, enc2, enc3, enc4 = "";
-            var i = 0;
- 
-            // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-            var base64test = /[^A-Za-z0-9\+\/\=]/g;
-            if (base64test.exec(input)) {
-                alert("There were invalid base64 characters in the input text.\n" +
-                    "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                    "Expect errors in decoding.");
-            }
-            input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
- 
-            do {
-                enc1 = keyStr.indexOf(input.charAt(i++));
-                enc2 = keyStr.indexOf(input.charAt(i++));
-                enc3 = keyStr.indexOf(input.charAt(i++));
-                enc4 = keyStr.indexOf(input.charAt(i++));
- 
-                chr1 = (enc1 << 2) | (enc2 >> 4);
-                chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-                chr3 = ((enc3 & 3) << 6) | enc4;
- 
-                output = output + String.fromCharCode(chr1);
- 
-                if (enc3 != 64) {
-                    output = output + String.fromCharCode(chr2);
-                }
-                if (enc4 != 64) {
-                    output = output + String.fromCharCode(chr3);
-                }
- 
-                chr1 = chr2 = chr3 = "";
-                enc1 = enc2 = enc3 = enc4 = "";
- 
-            } while (i < input.length);
- 
-            return output;
+        if (isNaN(chr2)) {
+          enc3 = enc4 = 64;
+        } else if (isNaN(chr3)) {
+          enc4 = 64;
         }
-    };
+ 
+        output = output +
+          keyStr.charAt(enc1) +
+          keyStr.charAt(enc2) +
+          keyStr.charAt(enc3) +
+          keyStr.charAt(enc4);
+        chr1 = chr2 = chr3 = "";
+        enc1 = enc2 = enc3 = enc4 = "";
+      } while (i < input.length);
+ 
+      return output;
+    },
+ 
+    decode: function (input) {
+      var output = "";
+      var chr1, chr2, chr3 = "";
+      var enc1, enc2, enc3, enc4 = "";
+      var i = 0;
+ 
+      // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+      var base64test = /[^A-Za-z0-9\+\/\=]/g;
+      if (base64test.exec(input)) {
+        alert("There were invalid base64 characters in the input text.\n" +
+          "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+          "Expect errors in decoding.");
+      }
+      input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+ 
+      do {
+        enc1 = keyStr.indexOf(input.charAt(i++));
+        enc2 = keyStr.indexOf(input.charAt(i++));
+        enc3 = keyStr.indexOf(input.charAt(i++));
+        enc4 = keyStr.indexOf(input.charAt(i++));
+ 
+        chr1 = (enc1 << 2) | (enc2 >> 4);
+        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+        chr3 = ((enc3 & 3) << 6) | enc4;
+ 
+        output = output + String.fromCharCode(chr1);
+ 
+        if (enc3 != 64) {
+          output = output + String.fromCharCode(chr2);
+        }
+        if (enc4 != 64) {
+          output = output + String.fromCharCode(chr3);
+        }
+ 
+        chr1 = chr2 = chr3 = "";
+        enc1 = enc2 = enc3 = enc4 = "";
+ 
+      } while (i < input.length);
+ 
+      return output;
+    }
+  };
 })
 
 ;
