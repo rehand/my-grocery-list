@@ -2,7 +2,7 @@
     <h2 class="page-header">
         <span>{{list.title}}</span>
         <small>Created: {{list.dt_created | date:format}}</small>
-        <button class="btn btn-default" ui-sref="lists.detail.editList({listId: list.id})" data-tooltip="edit list">
+        <button class="btn btn-default" data-ui-sref="lists.detail.editList({listId: list.id})" data-tooltip="edit list">
             <span class="fa fa-pencil"></span>
         </button>
         <button class="btn btn-default" data-ng-click="archiveList(list)" data-tooltip="archive list">
@@ -14,7 +14,7 @@
     
     <h3>
         <span>Entries</span>
-        <a class="btn btn-default" ui-sref="lists.detail.createEntry()" data-tooltip="add entry"><span class="fa fa-plus"></span></a>
+        <a class="btn btn-default" data-ui-sref="lists.detail.createEntry()" data-tooltip="add entry"><span class="fa fa-plus"></span></a>
     </h3>
     <div data-ng-repeat="entry in list.entries | orderBy:['done','title']">
         <div class="input-group">
@@ -25,7 +25,7 @@
                 <span data-ng-bind="entry.title" data-ng-click="entry.tmpDone = !entry.tmpDone; updateDone(entry);"></span>
             </div>
             <div class="input-group-btn">
-                <button class="btn btn-default" ui-sref="lists.detail.editEntry({entryId: entry.id})" data-tooltip="edit entry">
+                <button class="btn btn-default" data-ui-sref="lists.detail.editEntry({entryId: entry.id})" data-tooltip="edit entry">
                     <span class="fa fa-pencil"></span>
                 </button>
                 <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription" data-tooltip="show/hide description">
@@ -38,5 +38,5 @@
         </div>
     </div>
     
-    <div ui-view="edit"></div>
+    <div data-ui-view="edit"></div>
 </div>
