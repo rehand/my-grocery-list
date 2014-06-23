@@ -76,6 +76,13 @@ angular.module( 'myGroceryList', [
     if (angular.isDefined(toState) && angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
       $scope.pageTitle = toState.data.pageTitle + ' | myGroceryList' ;
     }
+    
+    // collapse menu after changing state if not collapsed
+    if (angular.isDefined($scope.menuCollapsed)) {
+        if (!$scope.menuCollapsed) {
+            $scope.menuCollapsed = true;
+        }
+    }
   });
 })
 
