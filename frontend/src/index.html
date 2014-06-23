@@ -58,24 +58,24 @@
         </div>
         <div class="collapse navbar-collapse" collapse="menuCollapsed">
           <ul class="nav navbar-nav">
-            <li ui-sref-active="active">
-              <a href ui-sref="home">
+            <li data-ui-sref-active="active">
+              <a data-ui-sref="home">
                 <i class="fa fa-home"></i>
                 Home
               </a>
             </li>
-            <li ui-sref-active="active" data-ng-class="{active: $state.includes('lists')}">
-              <a href ui-sref="lists">
+            <li data-ui-sref-active="active" data-ng-class="{active: $state.includes('lists')}">
+              <a data-ui-sref="lists">
                 <i class="fa fa-list"></i>
                 Grocery Lists
               </a>
               </li>
-              <li ui-sref-active="active" data-ng-switch="!!userLoggedIn">
-                <a href ui-sref="login" data-ng-switch-when="false">
+              <li data-ui-sref-active="active" data-ng-switch="!!userLoggedIn">
+                <a data-ui-sref="login" data-ng-switch-when="false">
                   <i class="fa fa-sign-in"></i>
                   Login
                 </a>
-                <a href ui-sref="logout" data-ng-switch-when="true">
+                <a data-ui-sref="logout" data-ng-switch-when="true">
                   <i class="fa fa-sign-out"></i>
                   Logout &quot;{{userLoggedIn}}&quot;
                 </a>
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div class="container" ui-view="main"></div>
+    <div class="container" data-ui-view="main"></div>
 
     <footer class="footer">
       <div class="container">
