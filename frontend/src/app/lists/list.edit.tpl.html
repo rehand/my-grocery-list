@@ -1,7 +1,7 @@
 <div class="well well-sm">
     <h3>
         <span>{{list ? 'Edit list' : 'Create list'}}</span>
-        <button class="btn btn-danger" data-ng-click="deleteList(list)" data-ng-show="list"><span class="fa fa-trash-o"></span></button>
+        <button class="btn btn-danger" data-ng-click="deleteList(list)" data-ng-show="list" data-tooltip="delete list"><span class="fa fa-trash-o"></span></button>
     </h3>
     <form class="form-horizontal" name="editList" data-ng-submit="editList.$valid && save(list)">
         <div class="form-group">

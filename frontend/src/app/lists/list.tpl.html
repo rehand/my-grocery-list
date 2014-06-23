@@ -2,10 +2,10 @@
     <h2 class="page-header">
         <span>{{list.title}}</span>
         <small>Created: {{list.dt_created | date:format}}</small>
-        <button class="btn btn-default" ui-sref="lists.detail.editList({listId: list.id})">
+        <button class="btn btn-default" ui-sref="lists.detail.editList({listId: list.id})" data-tooltip="edit list">
             <span class="fa fa-pencil"></span>
         </button>
-        <button class="btn btn-default" data-ng-click="archiveList(list)">
+        <button class="btn btn-default" data-ng-click="archiveList(list)" data-tooltip="archive list">
             <span class="fa fa-archive"></span>
         </button>
         <br/>
@@ -14,7 +14,7 @@
     
     <h3>
         <span>Entries</span>
-        <a class="btn btn-default" ui-sref="lists.detail.createEntry()"><span class="fa fa-plus"></span></a>
+        <a class="btn btn-default" ui-sref="lists.detail.createEntry()" data-tooltip="add entry"><span class="fa fa-plus"></span></a>
     </h3>
     <div data-ng-repeat="entry in list.entries | orderBy:['done','title']">
         <div class="input-group">
@@ -25,10 +25,10 @@
                 <span data-ng-bind="entry.title" data-ng-click="entry.tmpDone = !entry.tmpDone; updateDone(entry);"></span>
             </div>
             <div class="input-group-btn">
-                <button class="btn btn-default" ui-sref="lists.detail.editEntry({entryId: entry.id})">
+                <button class="btn btn-default" ui-sref="lists.detail.editEntry({entryId: entry.id})" data-tooltip="edit entry">
                     <span class="fa fa-pencil"></span>
                 </button>
-                <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription">
+                <button class="btn btn-default" data-ng-init="entry.showDescription = false" data-ng-click="entry.showDescription = !entry.showDescription" data-tooltip="show/hide description">
                     <span data-ng-class="entry.showDescription ? 'fa fa-minus-square-o' : 'fa fa-plus-square-o'"></span>
                 </button>
             </div>
