@@ -14,6 +14,9 @@ class GroceryListView(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         obj.owner = self.request.user
+    
+    def get_queryset(self):
+        return self.model.objects.filter(visible=True)
 
 class GroceryListEntryView(viewsets.ModelViewSet):
     model = models.GroceryListEntry
@@ -26,7 +29,7 @@ class GroceryListEntryView(viewsets.ModelViewSet):
 class AuthView(APIView):
     authentication_classes = (authentication.QuietBasicAuthentication,)
     serializer_class = serializers.UserSerializer
-    permission_classes = (rest_framework.permissions.AllowAny, )
+    permission_classes = (rest_framework.permissions.AllowAny,)
  
     def post(self, request, *args, **kwargs):
         return Response(self.serializer_class(request.user).data)

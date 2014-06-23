@@ -17,7 +17,8 @@ class GroceryListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GroceryList
-        fields = ('id', 'title', 'description', 'owner', 'dt_created', 'dt_modified', 'entries')
+        fields = ('id', 'title', 'description', 'owner', 'dt_created', 'dt_modified', 'entries', 'visible')
+        write_only_fields = ('visible', )
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

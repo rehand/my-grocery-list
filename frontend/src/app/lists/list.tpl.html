@@ -5,6 +5,9 @@
         <button class="btn btn-default" ui-sref="lists.detail.editList({listId: list.id})">
             <span class="fa fa-pencil"></span>
         </button>
+        <button class="btn btn-default" data-ng-click="archiveList(list)">
+            <span class="fa fa-archive"></span>
+        </button>
         <br/>
         <small>{{list.description}}</small>
     </h2>

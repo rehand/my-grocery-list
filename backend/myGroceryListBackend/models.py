@@ -7,6 +7,7 @@ class GroceryList(models.Model):
     description = models.CharField(max_length=2000)
 
     owner = models.ForeignKey(User, null=True)
+    visible = models.BooleanField(default=True)
 
     dt_created = models.DateTimeField(auto_now_add=True)
     dt_modified = models.DateTimeField(auto_now_add=True, auto_now=True)

@@ -87,7 +87,7 @@ angular.module( 'myGroceryList.lists', [
   };
 })
 
-.controller('ListCtrl', function ListCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log) {
+.controller('ListCtrl', function ListCtrl($scope, $state, $stateParams, utils, GroceryListEntryFactory, $log, GroceryListFactory) {
   $scope.list = utils.findById($scope.lists, $stateParams.listId);
   
   $scope.updateDone = function(entry) {
@@ -100,6 +100,24 @@ angular.module( 'myGroceryList.lists', [
       function(err) {
         entry.tmpDone = entry.done;
         $log.error('error: ', err);
+      }
+    );
+  };
+  
+  $scope.archiveList = function(list) {
+    listDto = new GroceryListFactory({
+      id: list.id, 
+      visible: false
+    });
+    
+    listDto.$update().then(
+      function(success) {
+        $scope.lists.splice($scope.lists.indexOf(list), 1);
+        utils.navigateUp($state, $stateParams);
+        $log.info("archive list success", success);
+      },
+      function(err) {
+        $log.info("archive list error", err);
       }
     );
   };
