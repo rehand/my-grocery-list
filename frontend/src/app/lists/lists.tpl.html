@@ -8,7 +8,7 @@
         </button>
       </h3>
       <ul class="nav nav-pills nav-stacked">
-        <li ng-repeat="list in lists | orderBy:'title'" ui-sref-active="active">
+        <li data-ng-repeat="list in lists | orderBy:'title' | orderBy:hasUnfinishedEntries:true" ui-sref-active="active">
           <a ui-sref="lists.detail({listId:list.id})">{{list.title}}</a>
         </li>
       </ul>

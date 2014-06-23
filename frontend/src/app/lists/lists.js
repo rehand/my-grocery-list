@@ -78,7 +78,13 @@ angular.module( 'myGroceryList.lists', [
 })
 
 .controller( 'ListsCtrl', function ListsCtrl($scope, lists) {
-    $scope.lists = lists;
+  $scope.lists = lists;
+  
+  $scope.hasUnfinishedEntries = function (list) {
+    return list.entries.filter(function (entry) {
+      return !entry.done;
+    }).length > 0;
+  };
 })
 
 .controller('ListCtrl', function ListCtrl($scope, $stateParams, utils, GroceryListEntryFactory, $log) {
