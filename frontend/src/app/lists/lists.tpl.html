@@ -9,10 +9,9 @@
       </h3>
       <ul class="nav nav-pills nav-stacked">
         <li data-ng-repeat="list in lists | orderBy:'title' | orderBy:hasUnfinishedEntries:true" ui-sref-active="active" data-ng-class="{disabled: !hasUnfinishedEntries(list)}">
-          <a ui-sref="lists.detail({listId:list.id})">{{list.title}}</a>
+          <a ui-sref="lists.detail({listId:list.id})">{{list.title}} <span class="label label-default">{{list.unfinishedEntriesCount}}</span></a>
         </li>
       </ul>
-      <hr>
     </div>
   </div>
 

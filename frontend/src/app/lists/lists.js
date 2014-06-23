@@ -81,9 +81,11 @@ angular.module( 'myGroceryList.lists', [
   $scope.lists = lists;
   
   $scope.hasUnfinishedEntries = function (list) {
-    return list.entries.filter(function (entry) {
+    list.unfinishedEntriesCount = list.entries.filter(function (entry) {
       return !entry.done;
-    }).length > 0;
+    }).length;
+    
+    return list.unfinishedEntriesCount > 0;
   };
 })
 
