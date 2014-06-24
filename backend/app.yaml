@@ -1,0 +1,25 @@
+application: themygrocerylist
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+default_expiration: "14d"
+
+libraries:
+- name: django
+  version: "1.5"
+
+builtins:
+- django_wsgi: on
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'MyGroceryList.settings'
+  GOOGLE_SQL_OAUTH2_REFRESH_TOKEN: "1/CTz8QVJCF_ToEhCN5Vi97VYM4YjHcYhsFFBHJHEHUKM"
+
+handlers:
+- url: /app/rest_framework
+  static_dir: rest_framework/static/rest_framework/
+  expiration: "30d"
+
+- url: /app
+  static_dir: app/
