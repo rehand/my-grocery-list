@@ -12,8 +12,8 @@ libraries:
 - name: MySQLdb
   version: "latest"
 
-builtins:
-- django_wsgi: on
+#builtins:
+#- django_wsgi: on
 
 env_variables:
   DJANGO_SETTINGS_MODULE: 'MyGroceryList.settings'
@@ -26,3 +26,7 @@ handlers:
 
 - url: /app
   static_dir: app/
+
+- url: /.*
+  script: google.appengine.ext.django.main.app
+  secure: always
