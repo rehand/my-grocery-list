@@ -12,6 +12,12 @@ libraries:
 - name: MySQLdb
   version: "latest"
 
+<<<<<<< HEAD
+=======
+#builtins:
+#- django_wsgi: on
+
+>>>>>>> e5005161e8ef9c508f495176235d8bb6b76d76ee
 env_variables:
   DJANGO_SETTINGS_MODULE: 'MyGroceryList.settings'
   GOOGLE_SQL_OAUTH2_REFRESH_TOKEN: "1/CTz8QVJCF_ToEhCN5Vi97VYM4YjHcYhsFFBHJHEHUKM"
@@ -24,7 +30,10 @@ handlers:
 - url: /app
   static_dir: app/
 
+<<<<<<< HEAD
 # same as "builtins: - django_wsgi: on" but with the option to set secure parameter
+=======
+>>>>>>> e5005161e8ef9c508f495176235d8bb6b76d76ee
 - url: /.*
   script: google.appengine.ext.django.main.app
   secure: always
