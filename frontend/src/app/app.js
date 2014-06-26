@@ -34,6 +34,39 @@ angular.module( 'myGroceryList', [
   };
 })
 
+.factory('AuthHandler', function(AuthFactory, COOKIE_NAMES, $cookieStore, $rootScope, $log, $window) {
+  return {
+    login: function($state, doRedirect) {
+      auth = new AuthFactory();
+      auth.$save().then(function(result) {
+        if (result) {
+          if (result.username) {
+            var loginName = result.username;
+            $log.log("user logged in: " + loginName);
+            $rootScope.userLoggedIn = loginName;
+            $cookieStore.put(COOKIE_NAMES.loginName, loginName);
+            
+            if (doRedirect && $state) {
+              $state.transitionTo("lists");
+            }
+          } else if (doRedirect && result.loginUrl) {
+            $window.location = result.loginUrl;
+          }
+        }
+      });
+    },
+    logout: function($state) {
+      $cookieStore.remove(COOKIE_NAMES.loginName);
+      $rootScope.userLoggedIn = null;
+      
+      auth = new AuthFactory();
+      promise = auth.$remove().then(function(result) {
+        $window.location = result.logoutUrl;
+      });
+    }
+  };
+})
+
 .config( function myAppConfig ($urlRouterProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/home');
   
@@ -45,7 +78,7 @@ angular.module( 'myGroceryList', [
   $httpProvider.interceptors.push('authHttpResponseInterceptor');
 })
 
-.run( function run ($rootScope, $state, $stateParams, $log) {
+.run( function run ($rootScope, $state, $stateParams, $log, AuthHandler, $location) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
   
@@ -60,6 +93,11 @@ angular.module( 'myGroceryList', [
       $state.go($rootScope.previousState_name, $rootScope.previousState_params);
     }
   };
+  
+  // call login when app is loaded (only if not in login state)
+  if ($location.path() !== '/login') {
+    AuthHandler.login(null, false);
+  }
 })
 
 .controller('AppCtrl', function AppCtrl($scope, $location) {
