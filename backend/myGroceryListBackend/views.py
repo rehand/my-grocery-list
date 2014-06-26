@@ -22,7 +22,7 @@ class GroceryListView(viewsets.ModelViewSet):
         obj.owner = self.request.user
     
     def get_queryset(self):
-        return self.model.objects.filter(visible=True)
+        return self.model.objects.filter(visible=True, owner=self.request.user)
 
 class GroceryListEntryView(viewsets.ModelViewSet):
     model = models.GroceryListEntry
@@ -32,6 +32,9 @@ class GroceryListEntryView(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         obj.owner = self.request.user
+    
+    def get_queryset(self):
+        return self.model.objects.filter(owner=self.request.user)
 
 class AuthView(APIView):
     authentication_classes = (authentication.QuietBasicAuthentication,)
