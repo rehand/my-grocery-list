@@ -10,13 +10,13 @@ angular.module( 'myGroceryList', [
 ])
 
 .constant('COOKIE_NAMES', {
-    login: 'header',
-    loginName: 'loginName'
+    loginName: 'loginName',
+    csrfToken: 'csrftoken'
 })
 
-.factory('authHttpResponseInterceptor', function($q, $location, $log, COOKIE_NAMES, $cookieStore, $rootScope){
+.factory('authHttpResponseInterceptor', function($q, $location, $log, COOKIE_NAMES, $cookieStore, $rootScope) {
   return {
-    response: function(response){
+    response: function(response) {
       if (response.status === 403) {
         $log.log("Response " + response.status);
       }
@@ -25,7 +25,6 @@ angular.module( 'myGroceryList', [
     responseError: function(rejection) {
       if (rejection.status === 401) {
         $log.log("Response Error ", rejection);
-        $cookieStore.remove(COOKIE_NAMES.login);
         $cookieStore.remove(COOKIE_NAMES.loginName);
         $rootScope.userLoggedIn = null;
         $rootScope.$state.go('login');
@@ -39,14 +38,14 @@ angular.module( 'myGroceryList', [
   $urlRouterProvider.otherwise('/home');
   
   // set CSRF cookie and header name
-  //$httpProvider.defaults.xsrfCookieName = 'csrftoken';
-  //$httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+  $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+  $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
   
   // HTTP interceptor to check auth failures for XHR requests
   $httpProvider.interceptors.push('authHttpResponseInterceptor');
 })
 
-.run( function run ($rootScope, $state, $stateParams, $http, $log, COOKIE_NAMES, $cookieStore) {
+.run( function run ($rootScope, $state, $stateParams, $log) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
   
@@ -61,14 +60,6 @@ angular.module( 'myGroceryList', [
       $state.go($rootScope.previousState_name, $rootScope.previousState_params);
     }
   };
-  
-  // set auth data in header if cookie is available
-  var login = $cookieStore.get(COOKIE_NAMES.login);
-  $log.log("auth header from cookie: ", login);
-  if (login) {
-    $http.defaults.headers.common['Authorization'] = login;
-    $rootScope.userLoggedIn = $cookieStore.get(COOKIE_NAMES.loginName);
-  }
 })
 
 .controller('AppCtrl', function AppCtrl($scope, $location) {

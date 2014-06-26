@@ -98,6 +98,9 @@ USE_TZ = True
 
 STATIC_URL = '/app/'
 
+# set cookie path to / because in some cases the csrf cookie was set in / and /app/
+CSRF_COOKIE_PATH = '/'
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "app"),
     os.path.join(BASE_DIR, "static"),
@@ -123,7 +126,7 @@ REST_FRAMEWORK = {
     ],
     
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'myGroceryListBackend.authentication.QuietBasicAuthentication',
+        #'myGroceryListBackend.authentication.QuietBasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         #'rest_framework.authentication.BasicAuthentication',
     ]
