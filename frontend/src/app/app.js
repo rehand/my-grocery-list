@@ -100,7 +100,7 @@ angular.module( 'myGroceryList', [
   }
 })
 
-.controller('AppCtrl', function AppCtrl($scope, $location) {
+.controller('AppCtrl', function AppCtrl($scope, $location, $http) {
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
     if (angular.isDefined(toState) && angular.isDefined(toState.data) && angular.isDefined(toState.data.pageTitle)) {
       $scope.pageTitle = toState.data.pageTitle + ' | myGroceryList' ;
@@ -112,6 +112,16 @@ angular.module( 'myGroceryList', [
             $scope.menuCollapsed = true;
         }
     }
+  });
+  
+  $scope.isLoading = false;
+  
+  $scope.isLoadingFct = function() {
+    return $http.pendingRequests.length > 0;
+  };
+  
+  $scope.$watch($scope.isLoadingFct, function(val) {
+    $scope.isLoading = val;
   });
 })
 
