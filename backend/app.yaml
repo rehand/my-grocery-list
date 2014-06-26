@@ -21,6 +21,10 @@ handlers:
   static_dir: rest_framework/static/rest_framework/
   expiration: "30d"
 
+- url: /app/admin
+  static_dir: app/assets/admin/
+  expiration: "30d"
+
 - url: /app
   static_dir: app/
 
